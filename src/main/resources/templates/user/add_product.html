@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="user/user_base::layout(~{::section},Add_Product)">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body onload="myFunction()">
+    <section class="home">
+        <!-- ------------Dashboard------------- -->
+        <div class="center-container">
+            <h1>this form page for adding a product</h1>
+            <div class="add-product-form">
+                <form th:action="@{/user/do_add_process}" method="post" enctype="multipart/form-data" th:object="${product}" style="display: flex;flex-direction: column;">
+                    <input type="text" th:value="${product.title}" name="title" id="title" placeholder="product title" required>
+                    <input type="text" th:value="${product.subtitle}" name="subtitle" id="subtitle" placeholder="product subtitle" required>
+                    <input type="file" name="product_file" id="product_file" placeholder="product file" required>
+                    <input type="file" name="image" id="image" placeholder="product image" required>
+                    <select name="type" th:value="${product.type}" id="type">
+                        <option value="footer">footer</option>
+                        <option value="header">header</option>
+                        <option value="navigation">navigation</option>
+                        <option value="login">login</option>
+                        <option value="register">register</option>
+                    </select>
+                    <input type="number" th:value="${product.price}" name="price" id="price" placeholder="project price">
+                    <textarea name="description" th:value="${product.description}" id="description" cols="30" rows="10" placeholder="Enter product description"></textarea>
+                    <input type="submit" value="Add">
+                </form>
+                <h1 th:style="${message.type==error} ? 'color:red' : 'color:green'" th:text="${message.msg}"></h1>
+            </div>
+        </div>
+
+   </section>
+</body>
+
+</html>

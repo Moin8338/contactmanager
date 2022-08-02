@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="dashboard" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(content,title)">
+
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+     <link rel="stylesheet" th:href="@{/css/sidebar.css}">
+     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+     <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+     <title th:text="${title}"></title>
+
+
+</head>
+
+<body>
+     <!-- sidebar -->
+     <nav class="sidebar close">
+          <header>
+               <div class="image-text">
+                    <span class="image">
+                         <a th:href="@{/user/profile}"><img th:src="@{/images/logo.png}" alt=""></a>
+                    </span>
+
+                    <div class="text logo-text">
+                         <span class="name">Codinglab</span>
+                         <span class="profession">Web developer</span>
+                    </div>
+               </div>
+
+               <i class='bx bx-chevron-right toggle'></i>
+          </header>
+
+          <div class="menu-bar">
+               <div class="menu">
+
+                    <li class="search-box">
+                         <i class='bx bx-search icon'></i>
+                         <input type="text" placeholder="Search...">
+                    </li>
+
+                    <ul class="menu-links">
+                         <li class="nav-link">
+                              <a th:href="@{/user/dashboard}">
+                                   <i class='bx bx-home-alt icon'></i>
+                                   <span class="text nav-text" th:text="${title}">Dashboard</span>
+                              </a>
+                         </li>
+
+                         <li class="nav-link">
+                              <a th:href="@{/user/add-product}">
+                                   <i class='bx bx-pie-chart-alt icon'></i>
+                                   <span class="text nav-text">Add Product</span>
+                              </a>
+                         </li>
+                         <hr>
+                         <li class="nav-link">
+                              <a href="#">
+                                   <i class='bx bx-bar-chart-alt-2 icon'></i>
+                                   <span class="text nav-text">Revenue</span>
+                              </a>
+                         </li>
+
+                         <li class="nav-link">
+                              <a href="#">
+                                   <i class='bx bx-bell icon'></i>
+                                   <span class="text nav-text">Notifications</span>
+                              </a>
+                         </li>
+
+
+                         <li class="nav-link">
+                              <a href="#">
+                                   <i class='bx bx-heart icon'></i>
+                                   <span class="text nav-text">Likes</span>
+                              </a>
+                         </li>
+                         <hr>
+                         <li class="nav-link">
+                              <a href="#">
+                                   <i class='bx bx-wallet icon'></i>
+                                   <span class="text nav-text">Wallets</span>
+                              </a>
+                         </li>
+
+                    </ul>
+               </div>
+
+               <div class="bottom-content">
+                    <li class="">
+                         <a th:href="@{/logout}">
+                              <i class='bx bx-log-out icon'></i>
+                              <span class="text nav-text">Logout</span>
+                         </a>
+                    </li>
+
+                    <li class="mode">
+                         <div class="sun-moon">
+                              <i class='bx bx-moon icon moon'></i>
+                              <i class='bx bx-sun icon sun'></i>
+                         </div>
+                         <span class="mode-text text">Dark mode</span>
+
+                         <div class="toggle-switch">
+                              <span class="switch"></span>
+                         </div>
+                    </li>
+               </div>
+          </div>
+     </nav>
+
+     <section th:replace="${content}"></section>
+
+     <script th:src="@{/js/sidebar.js}"></script>
+     <script th:src="@{/js/dashboard.js}"></script>
+     <script th:src="@{/js/setandsrchdata.js}"></script>
+
+</body>
+
+</html>

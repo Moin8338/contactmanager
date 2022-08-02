@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="user/user_base::layout(~{::section},dashboard)">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    
+    <section class="home" >
+        <!-- ------------Dashboard------------- -->
+        <div class="center-container">
+             <div class="top-container">
+                  <div class="dashboard-header">
+                       <h1><span class="greeting">Good Morning </span><span class="user-name" th:text="${user.name}"></span></h1>
+                       <h4>Here you can manage your account and resources</h4><button class="getdata" onclick="getdata()">click</button>
+                  </div>
+                  <!-- <a href="./pages/register.html"><button type="button">Sign Up</button></a> -->
+
+                  <div class="top-cards">
+                       <!-- ----Follower--- -->
+                       <div class="card-1">
+                            <div class="card-count"><span class="count" th:text="${user.followers.size}">126</span></div>
+                            <div class="card-name">
+                                 <h3 class="top-h3">Followers</h3>
+                            </div>
+                       </div>
+
+                       <!-- ----Following---- -->
+                       <div class="card-2">
+                            <div class="card-count"><span class="count" th:text="${user.followings}">126</span></div>
+                            <div class="card-name">
+                                 <h3 class="top-h3">Following</h3>
+                            </div>
+                       </div>
+
+
+                       <!-- --------Resources------ -->
+                       <div class="card-3">
+                            <div class="card-count"><span class="count" th:text="${user.resources.size}">126</span></div>
+                            <div class="card-name">
+                                 <h3 class="top-h3">Resources</h3>
+                            </div>
+                       </div>
+
+                  </div>
+             </div>
+
+             <!-- all Items -->
+             <!-- In this user can all his items. -->
+
+             <div class="items-section" ng-controller="searchitems">
+                  <!-- Filter to search items -->
+                  <div class="itm-filter">
+                       <input type="text" placeholder="Search Resources..." ng-model="search">
+                       <select name="sort" id="sort">
+                            <option value="recent" selected>Recent</option>
+                            <option value="popular">Popular</option>
+                       </select>
+                  </div>
+
+                  <!-- Display all items -->
+                  <div class="all-itms">
+                       <!-- item card -->
+                       <div class="itm-card" ng-repeat="item in templetes | filter : search">
+                            <!-- display card image. -->
+                            <div class="itm-img">
+                                 <img src={{item.view_image_path}} alt={{item.title}} onclick="view_box()">
+                            </div>
+                            <div class="itm-detail">
+                                 <h2>{{item.title}}</h2>
+                            </div>
+                       </div>
+                  </div>
+             </div>
+        </div>
+
+        <!-- this container content a profile of a user and its details
+        here he/she can manage the information and resources -->
+        <div class="right-container">
+             <!-- ----------user profile image and name -->
+             <div class="user-section">
+                  <div class="container">
+                       <div class="avatar-upload">
+                            <div class="avatar-edit">
+                                 <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                                 <label for="imageUpload"></label>
+                            </div>
+                            <div class="avatar-preview">
+                                 <div id="imagePreview"
+                                      style="background-image: url(../images/person-1.png);">
+                                 </div>
+                            </div>
+                       </div>
+                  </div>
+                  <div class="user-name">
+                       <h2><span>Faizal Kadiwal</span></h2>
+                       <h4><a href="#"> @thewebdev</a></h4>
+                  </div>
+             </div>
+
+             <!-- ----user information------------ -->
+             <div class="recent-follow" ng-controller="searchitems">
+                  <div class="title">Recent Follower</div>
+                  <hr>
+                  <div class="follower-list">
+                       <div class="follower-detail" ng-repeat="item in recent_follow">
+                            <img th:src="@{/images/person-1.png}" alt="{{item.user_id}}">
+                            <h5><a href="#">{{item.user_name}}</a> Starting following you</h5>
+                       </div>
+                  </div>
+             </div>
+
+             <!-- <div class="info">
+                  <div class="edit-info">
+                       <img src="../images/pngs/edit-pen.png" alt="Edit">
+                       <h4>edit</h4>
+                  </div>
+                  <div class="user-info">
+                       <h4>Name</h4>
+                       <span class="name">Faizal Kadiwal</span>
+
+                       <h4>E-mail</h4>
+                       <span class="email">faizalkadiwal108@gmail.com</span>
+
+                       <h4>About</h4>
+                       <span class="about">Hello my name is faizal kadiwal.i am a computer engineering
+                            student.currently i am pursuing b.tech in computer engineering at ganpat university.
+                       </span>
+
+                       <h4>Skills</h4>
+                       <span class="skills">
+                            <ul>
+                                 <li>HTML</li>
+                                 <li>CSS</li>
+                                 <li>JS</li>
+                                 <li>JAVA</li>
+                                 <li>CORE C</li>
+                                 <li>NODEJS</li>
+                            </ul>
+                       </span>
+                  </div>
+                  <form action="" method="get">
+                       <input type="text" placeholder="First Name.." class="firstname" name="firstname" value=""
+                            required>
+                       <input type="text" placeholder="Last Name.." class="lastname" name="lastname" value=""
+                            required>
+                       <input type="email" name="email" id="email" class="email" placeholder="DevMall@gmail.com"
+                            value="" required>
+                       <textarea name="bio" id="bio" class="bio" cols="30" rows="7"
+                            placeholder="Tell Us About Yourself ...." required></textarea>
+                       <textarea name="skill" class="skill" cols="30" rows="6" placeholder="Skills..."></textarea>
+
+                       <div class="btns">
+                            <button type="button" class="cancel-btn">Cancel</button>
+                            <button type="button" class="submit-btn">Save</button>
+                       </div>
+                  </form>
+
+             </div> -->
+        </div>
+
+        <!-- post-viewer -->
+        <!-- onclick it pop up and give post details -->
+        <div class="view-wrapper close" ng-controller="viewController">
+             <div class="inner-wrapper">
+                  <div class="image">
+                       <img src={{item[0].view_image_path}} alt="">
+                       <h2>{{item[0].title}}</h2>
+                       <!-- <h3><i>{{item[0].tags.toString()}}</i></h3> -->
+                       <h3><i>html,css and javascript</i></h3>
+                       <h4>{{item[0].description}}</h4>
+                  </div>
+                  <div class="post-detail">
+                       <div class="likes">
+                            <i class="bx bx-heart icon"></i>
+                            <h3>{{item[0].likes}}</h3>
+                       </div>
+                       <div class="downloads">
+                            <i class="bx bx-download icon"></i>
+                            <h3>{{item[0].downloads}}</h3>
+                       </div>
+                       <div class="shares">
+                            <i class="bx bx-share-alt icon"></i>
+                            <h3>{{item[0].shares}}</h3>
+                       </div>
+                       <div class="comment">
+                            <i class="bx bx-comment icon"></i>
+                            <h3>{{item[0].comments}}</h3>
+                       </div>
+                  </div>
+                  <div class="preview">
+                       <button class="preview-btn">Preview</button>
+                  </div>
+                  <div class="close">
+                       <img th:src="@{/images/pngs/back-2png}" alt="<">
+                  </div>
+             </div>
+        </div>
+
+   </section>
+</body>
+</html>
